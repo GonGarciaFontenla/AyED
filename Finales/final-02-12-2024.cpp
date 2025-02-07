@@ -139,7 +139,8 @@ int main() {
 //Verdadero o falso
 /*
 Los algoritmos de busqueda binaria funcionan solo con listas ordenadas. 
-Verdadero: La condicion previa para la busqueda binaria es que la estructura se encuentre ordenada. 
+Falso: Si bien la condicion previa para la busqueda binaria es que la estructura se encuentre ordenada, 
+la busqueda binaria no es solo aplicable a listas. 
 */
 
 /*
