@@ -24,7 +24,6 @@ Nodo* unionEnLista(Nodo* pila, Nodo* cFrente, Nodo* cFin, Nodo* vec[], int len) 
     while(aux != NULL) { 
         valor = pop(aux); 
         addList(list, valor); 
-        aux = aux->sig; 
     }
 
     for(int i = 0; i < len; i++) {
