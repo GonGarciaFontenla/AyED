@@ -215,7 +215,7 @@ int main() {
     proc(p,3);
     p[2] = *(p+1)+x; 
     for(int i = 0; i < 3; i++){
-        cout << *(p+1)<< " "<<endl; 
+        cout << *(p+i)<< " "<<endl; 
     }
     delete []p;
     return 0; 
