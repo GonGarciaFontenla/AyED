@@ -18,11 +18,10 @@ int suprimir(Nodo* &colaFrente, Nodo* &colaFin);
 
 Nodo* unionEnLista(Nodo* pila, Nodo* cFrente, Nodo* cFin, Nodo* vec[], int len) {
     Nodo* list = NULL; 
-    Nodo* aux = pila; 
     int valor; 
 
-    while(aux != NULL) { 
-        valor = pop(aux); 
+    while(pila != NULL) { 
+        valor = pop(pila); 
         addList(list, valor); 
     }
 
