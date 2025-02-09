@@ -146,5 +146,5 @@ la busqueda binaria no es solo aplicable a listas.
 /*
 Es posible sobreescribir solo parte del contenido de un archivo binario sin modificar el resto del archivo. 
 
-NO TENGO NI IDEA!!!
+Verdadero: Esto se puede lograr mediante la funcion fseek, logrando posicionarme sobre el registro que deseo.
 */
