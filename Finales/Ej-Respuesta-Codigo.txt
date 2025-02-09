@@ -1,0 +1,504 @@
+int main() {
+    int arr[] = {5, 10, 15, 20, 25}; 
+    int *ptr = arr + 1; 
+    cout << *(ptr + 2) << endl;  
+    cout << *ptr << endl; 
+    return 0; 
+}
+
+Respuesta = 20 - 10
+
+
+
+int factorial(int n) {
+    if(n == 0) return 1; 
+    return n * factorial(n - 1); 
+}
+
+int main() {
+    int resultado = factorial(4); 
+    cout << resultado << endl; 
+    return 0; 
+}
+
+Resultado = 24
+
+
+
+int main() {
+    int *a, *b; 
+    a = new int(); 
+    *a = 50; 
+    b = a; 
+    (*b)++; 
+    cout << *a << endl;  
+    delete a;
+}
+
+Resultado = 51
+
+
+
+int main() {
+    int *p = new int[4]; 
+
+    p[0] = 12;
+    p[1] = 24;
+    p[2] = 36;
+    p[3] = 48;
+
+    cout << *(p + 3) << endl;
+    delete [] p;
+}
+
+Resultado = 48; 
+
+
+
+void modificar(int *ptr) {
+    *ptr = 99;
+}
+
+int main() {
+    int x = 5; 
+    modificar(&x); 
+    cout << x << endl; 
+    return 0;
+}
+
+Resultado = 99 
+
+
+
+int main() {
+    int *p; 
+    p = new int[5]; 
+
+    p[0] = 3; 
+    p[1] = 6; 
+    p[2] = 9; 
+    p[3] = 12; 
+    p[4] = *(p + 1) + *(p + 2); 
+
+    cout << *(p + 4) << endl;
+    delete [] p;
+}
+
+Resultado = 15
+
+
+
+int main() {
+    int a = 10, b = 20;
+    int *p = &a, *q = &b;
+    
+    *p = *q;
+    cout << a << " " << b << endl;
+    
+    return 0;
+}
+
+Resultado = 20 20
+
+
+
+int f(int n) {
+    if (n <= 1) return 1;
+    return f(n - 1) + f(n - 2);
+}
+
+int main() {
+    cout << f(6) << endl;
+    return 0;
+}
+
+Resultado = 13
+
+
+int main() {
+    int *p = new int(100);
+    int *q = p;
+    
+    delete p;
+    cout << *q << endl;
+    
+    return 0;
+}
+
+Resultado = se hizo delete de p antes de print
+
+
+
+int main() {
+    int x[] = {1, 2, 3, 4, 5};
+    int *p[5];
+    
+    for (int i = 0; i < 5; i++)
+        p[i] = &x[i];
+
+    cout << *p[2] + *p[4] << endl;
+
+    return 0;
+}
+
+Resultado = 8
+
+
+
+void modificar(int &x) {
+    x += 10;
+}
+
+int main() {
+    int a = 15;
+    modificar(a);
+    cout << a << endl;
+    return 0;
+}
+
+Resultado = 25
+
+
+
+int main() {
+    int *arr = new int[4]{7, 14, 21, 28};
+
+    cout << arr[2] - arr[0] << endl;
+
+    delete[] arr;
+    return 0;
+}
+
+Resultado = 14
+
+
+
+struct Nodo {
+    int dato;
+    Nodo *sig;
+};
+
+int main() {
+    Nodo *n1 = new Nodo{10, nullptr};
+    Nodo *n2 = new Nodo{20, n1};
+
+    cout << n2->sig->dato << endl;
+
+    delete n1;
+    delete n2;
+    return 0;
+}
+
+Resultado = 10
+
+
+
+struct Nodo {
+    int info;
+    Nodo *sgte;
+};
+
+int main() {
+    Nodo *p = new Nodo{5, nullptr};
+    p->sgte = new Nodo{10, nullptr};
+    p->sgte->sgte = new Nodo{15, nullptr};
+
+    Nodo *aux = p->sgte;
+    p->sgte = p->sgte->sgte;
+    aux->sgte = p;
+
+    while (aux) {
+        cout << aux->info << "; ";
+        aux = aux->sgte;
+    }
+
+    return 0;
+}
+
+Resultado = 10 - 5 - 15
+
+
+
+struct Nodo {
+    int info;
+    Nodo *sgte;
+};
+
+Nodo* invertir(Nodo* cabeza) {
+    Nodo *prev = nullptr, *actual = cabeza, *sig = nullptr;
+
+    while (actual) {
+        sig = actual->sgte;
+        actual->sgte = prev;
+        prev = actual;
+        actual = sig;
+    }
+    return prev;
+}
+
+int main() {
+    Nodo *p = new Nodo{1, new Nodo{2, new Nodo{3, nullptr}}};
+
+    p = invertir(p);
+
+    Nodo *aux = p;
+    while (aux) {
+        cout << aux->info << "; ";
+        aux = aux->sgte;
+    }
+
+    return 0;
+}
+
+Resultado = 3 - 2 - 1
+
+
+
+struct Nodo {
+    int info;
+    Nodo *sgte;
+};
+
+Nodo* dele(Nodo* cabeza, int valor) {
+    if (!cabeza) return nullptr;
+    if (cabeza->info == valor) {
+        Nodo* temp = cabeza->sgte;
+        delete cabeza;
+        return temp;
+    }
+    
+    Nodo *actual = cabeza;
+    while (actual->sgte && actual->sgte->info != valor) {
+        actual = actual->sgte;
+    }
+
+    if (actual->sgte) {
+        Nodo *temp = actual->sgte;
+        actual->sgte = actual->sgte->sgte;
+        delete temp;
+    }
+    
+    return cabeza;
+}
+
+int main() {
+    Nodo *p = new Nodo{1, new Nodo{2, new Nodo{3, nullptr}}};
+    
+    p = dele(p, 2);
+
+    Nodo *aux = p;
+    while (aux) {
+        cout << aux->info << "; ";
+        aux = aux->sgte;
+    }
+
+    return 0;
+}
+
+Resultado = 1 - 3
+
+
+
+struct Nodo {
+    int info;
+    Nodo *sgte;
+};
+
+Nodo* add(Nodo* cabeza, int valor) {
+    Nodo *nuevo = new Nodo{valor, nullptr};
+    
+    if (!cabeza || cabeza->info >= valor) {
+        nuevo->sgte = cabeza;
+        return nuevo;
+    }
+
+    Nodo *actual = cabeza;
+    while (actual->sgte != NULL && actual->sgte->info < valor) {
+        actual = actual->sgte;
+    }
+
+    nuevo->sgte = actual->sgte;
+    actual->sgte = nuevo;
+
+    return cabeza;
+}
+
+int main() {
+    Nodo *p = new Nodo{10, new Nodo{20, new Nodo{30, nullptr}}};
+
+    p = add(p, 25);
+
+    Nodo *aux = p;
+    while (aux) {
+        cout << aux->info << "; ";
+        aux = aux->sgte;
+    }
+
+    return 0;
+}
+
+Respuesta = 10 - 20 - 25 - 30
+
+
+
+int main() {
+    int a = 5, b = 10;
+    int *p = &a;
+    int *q = &b;
+
+    *p = *q;
+    p = q;
+    *p = 20;
+
+    cout << a << " " << b << endl;
+    return 0;
+}
+
+Resultado = 10 20
+
+
+
+int f(int &x) {
+    x += 5;
+    return x;
+}
+
+int main() {
+    int a = 3;
+    cout << f(a) << " " << a << endl;
+    return 0;
+}
+
+Resultado = 8 8
+
+
+
+void f(int *x, int y) {
+    *x += y;
+    y = *x - y;
+}
+
+int main() {
+    int a = 10, b = 5;
+    f(&a, b);
+    cout << a << " " << b << endl;
+    return 0;
+}
+
+Resultado = 15 5
+
+
+
+int main() {
+    int arr[] = {2, 4, 6, 8};
+    int *p = arr;
+    
+    cout << *(p + 2) << " " << *p << endl;
+    
+    p++;
+    cout << *p << endl;
+    
+    return 0;
+}
+
+Resultado = 6 2 4
+
+
+
+int f(int x) {
+    if (x <= 1) return 1;
+    return x + f(x - 2);
+}
+
+int main() {
+    cout << f(7) << endl;
+    return 0;
+}
+
+Resultado = 16
+
+
+
+int main() {
+    int a = 10;
+    int &b = a;
+    b = 20;
+    cout << a << " " << b << endl;
+    return 0;
+}
+
+Resultado = 20 20
+
+
+
+void f(int &x, int &y) {
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+int main() {
+    int a = 3, b = 7;
+    f(a, b);
+    cout << a << " " << b << endl;
+    return 0;
+}
+
+Resultado = 7 3
+
+
+
+struct Nodo {
+    int valor;
+    Nodo *sgte;
+};
+
+int main() {
+    Nodo *p = new Nodo{1, nullptr};
+    p->sgte = new Nodo{2, nullptr};
+    p->sgte->sgte = new Nodo{3, nullptr};
+
+    Nodo *aux = p->sgte;
+    p->sgte = p->sgte->sgte;
+    aux->sgte = p;
+
+    while (aux) {
+        cout << aux->valor << "; ";
+        aux = aux->sgte;
+    }
+
+    return 0;
+}
+
+Resultado = 2 1 3
+
+
+
+void f(int *p, int *q) {
+    int temp = *p;
+    *p = *q;
+    *q = temp;
+}
+
+int main() {
+    int x = 5, y = 8;
+    f(&x, &y);
+    cout << x << " " << y << endl;
+    return 0;
+}
+
+Resultado = 8 5
+
+
+
+int f(int x) {
+    if (x == 0) return 1;
+    return x * f(x - 1);
+}
+
+int main() {
+    cout << f(4) << endl;
+    return 0;
+}
+
+Resultado = 24
